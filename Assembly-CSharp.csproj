@@ -50,6 +50,7 @@
     <Compile Include="Assets\WarFX\Scripts\CFX_AutoDestructShuriken.cs" />
     <Compile Include="Assets\Scripts\TankMove.cs" />
     <Compile Include="Assets\WarFX\Scripts\WFX_LightFlicker.cs" />
+    <Compile Include="Assets\Scripts\TankTurretController.cs" />
     <Compile Include="Assets\WarFX\Scripts\CFX_LightIntensityFade.cs" />
     <Compile Include="Assets\WarFX\Spawn System\CFX_SpawnSystem.cs" />
     <None Include="Assets\WarFX\Shaders\WFX_S Multiply Soft.shader" />
