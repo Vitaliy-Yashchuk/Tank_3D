@@ -45,8 +45,10 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.42f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AstronautThirdPersonCamera.cs" />
     <Compile Include="Assets\WarFX\Scripts\WFX_BulletHoleDecal.cs" />
     <Compile Include="Assets\WarFX\Scripts\CFX_AutoDestructShuriken.cs" />
+    <Compile Include="Assets\Scripts\TankMove.cs" />
     <Compile Include="Assets\WarFX\Scripts\WFX_LightFlicker.cs" />
     <Compile Include="Assets\WarFX\Scripts\CFX_LightIntensityFade.cs" />
     <Compile Include="Assets\WarFX\Spawn System\CFX_SpawnSystem.cs" />
