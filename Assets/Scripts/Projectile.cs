@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public float speed = 50f; // Швидкість польоту снаряда
-    public float explosionRadius = 5f; // Радіус вибуху
-    public float explosionForce = 2f; // Сила вибуху
-    public GameObject explosionEffect; // Префаб ефекту вибуху
+    public float speed = 50f; 
+    public float explosionRadius = 5f; 
+    public float explosionForce = 2f; 
+    public GameObject explosionEffect; 
+    public GameObject StartExplosionEffect;
 
     void Start()
     {
-        // Задаємо початкову швидкість руху снаряда
+        if (StartExplosionEffect != null)
+        {
+            Instantiate(StartExplosionEffect, transform.position, Quaternion.identity);
+        }
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -21,13 +25,10 @@ public class Projectile : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        // Створення ефекту вибуху
         if (explosionEffect != null)
         {
             Instantiate(explosionEffect, transform.position, Quaternion.identity);
         }
-
-        // Застосування сили вибуху до об'єктів в радіусі
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach (Collider nearbyObject in colliders)
         {
@@ -37,8 +38,6 @@ public class Projectile : MonoBehaviour
                 rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
             }
         }
-
-        // Знищення снаряда
         Destroy(gameObject);
     }
 }

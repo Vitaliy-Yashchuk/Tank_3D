@@ -2,18 +2,19 @@ using UnityEngine;
 
 public class TankShooting : MonoBehaviour
 {
-    public GameObject projectilePrefab; // Префаб снаряда
-    public Transform firePoint; // Точка спавну снаряда
-    public float fireRate = 1f; // Частота пострілів (пострілів за секунду)
-    private float nextFireTime = 0f; // Час наступного пострілу
+    public GameObject projectilePrefab;
+    public Transform firePoint;
+    public float fireRate = 3f;
+    private float nextFireTime = 0f;
+    public Rigidbody tankRigidbody;
+    public float recoilForce = 20f;
 
+    
     void Update()
     {
-        // Перевіряємо, чи натиснута ліва кнопка миші та чи пройшов час для наступного пострілу
         if (Input.GetMouseButtonDown(0) && Time.time >= nextFireTime)
         {
             Fire();
-            OnDrawGizmos();
             nextFireTime = Time.time + 1f / fireRate;
         }
     }
@@ -22,20 +23,19 @@ public class TankShooting : MonoBehaviour
     {
         if (projectilePrefab != null && firePoint != null)
         {
-            // Створюємо снаряд у точці спавну з поворотом firePoint
             Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+            
+            if (tankRigidbody != null)
+            {
+                Vector3 recoilDirection = -firePoint.up;
+                tankRigidbody.AddForce(recoilDirection * recoilForce, ForceMode.Impulse);
+                
+            }
         }
         else
         {
             Debug.LogWarning("Projectile Prefab або Fire Point не призначені!");
         }
     }
-    void OnDrawGizmos()
-    {
-        if (firePoint != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(firePoint.position, 0.1f); // Малюємо сферу в місці спавну
-        }
-    }
+    
 }

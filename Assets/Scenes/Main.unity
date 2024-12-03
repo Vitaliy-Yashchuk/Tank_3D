@@ -701,7 +701,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2040577, y: -0, z: -0, w: 0.97895885}
-  m_LocalPosition: {x: -0.26, y: 4.53, z: -7.41}
+  m_LocalPosition: {x: -0.26, y: 4.61, z: -8.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -882,11 +882,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turretBase: {fileID: 1366480409}
+  cameraTransform: {fileID: 963194228}
   rotationSpeed: 1
   maxTurretAngle: 20
   minTurretAngle: -30
   maxHorizontalAngle: 60
   minHorizontalAngle: -60
+  maxCameraVerticalAngle: 60
+  minCameraVerticalAngle: -30
+  maxCameraHorizontalAngle: 65
+  minCameraHorizontalAngle: -65
 --- !u!1 &1039368491
 GameObject:
   m_ObjectHideFlags: 0
@@ -1820,6 +1825,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 3456002978652959358, guid: c3506ae001b16a94aa930e797e85636b, type: 3}
   firePoint: {fileID: 1704679505}
   fireRate: 1
+  tankRigidbody: {fileID: 1025375183}
+  recoilForce: 60
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

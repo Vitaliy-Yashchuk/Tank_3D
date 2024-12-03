@@ -1,35 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TankTurretController : MonoBehaviour
 {
-    public Transform turretBase; // Трансформ основи дула (танка)
+    public Transform turretBase;       
+    public Transform cameraTransform; 
 
-    public float rotationSpeed = 2f;  // Швидкість обертання дула
-    public float maxTurretAngle = 70f; // Максимальний кут для підйому дула
-    public float minTurretAngle = -10f; // Мінімальний кут для опускання дула
-    public float maxHorizontalAngle = 70f; // Максимальний горизонтальний кут для обертання дула
-    public float minHorizontalAngle = -70f; // Мінімальний горизонтальний кут для обертання дула
+    public float rotationSpeed = 2f;
+    public float maxTurretAngle = 70f;
+    public float minTurretAngle = -10f;
+    public float maxHorizontalAngle = 70f;
+    public float minHorizontalAngle = -70f;
 
-    private float currentTurretAngle = 0f; // Поточний вертикальний кут нахилу дула
-    private float currentHorizontalAngle = 0f; // Поточний горизонтальний кут нахилу дула
+    public float maxCameraVerticalAngle = 60f;
+    public float minCameraVerticalAngle = -30f;
+    public float maxCameraHorizontalAngle = 90f;
+    public float minCameraHorizontalAngle = -90f;
+
+    private float currentTurretAngle = 0f;    
+    private float currentHorizontalAngle = 0f;
+    private float cameraVerticalAngle = 0f;
+    private float cameraHorizontalAngle = 0f;
 
     void Update()
     {
-        // Отримання вводу від миші для вертикального та горизонтального обертання дула
         float verticalInput = Input.GetAxis("Mouse Y");
         float horizontalInput = Input.GetAxis("Mouse X");
 
-        // Обмеження вертикального кута нахилу дула
+        cameraVerticalAngle -= verticalInput * rotationSpeed;
+        cameraVerticalAngle = Mathf.Clamp(cameraVerticalAngle, minCameraVerticalAngle, maxCameraVerticalAngle);
+
+        cameraHorizontalAngle += horizontalInput * rotationSpeed;
+        cameraHorizontalAngle = Mathf.Clamp(cameraHorizontalAngle, minCameraHorizontalAngle, maxCameraHorizontalAngle);
+
         currentTurretAngle -= verticalInput * rotationSpeed;
         currentTurretAngle = Mathf.Clamp(currentTurretAngle, minTurretAngle, maxTurretAngle);
 
-        // Обмеження горизонтального кута обертання дула
-        currentHorizontalAngle += horizontalInput * rotationSpeed;
-        currentHorizontalAngle = Mathf.Clamp(currentHorizontalAngle, minHorizontalAngle, maxHorizontalAngle);
+        float desiredHorizontalAngle = currentHorizontalAngle + horizontalInput * rotationSpeed;
 
-        // Оновлюємо обертання дула тільки по осях X (вертикально) і Y (горизонтально)
+        if (desiredHorizontalAngle > maxHorizontalAngle || desiredHorizontalAngle < minHorizontalAngle)
+        {
+        }
+        else
+        {
+            currentHorizontalAngle = desiredHorizontalAngle;
+        }
+
         turretBase.localRotation = Quaternion.Euler(currentTurretAngle, 0f, currentHorizontalAngle);
+
+        cameraTransform.localRotation = Quaternion.Euler(cameraVerticalAngle, cameraHorizontalAngle, 0f);
     }
 }
